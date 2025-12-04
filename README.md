@@ -1,86 +1,99 @@
-🎯 Olist E-Commerce Analytics (BigQuery + dbt)
-<p align="center"> <img src="https://raw.githubusercontent.com/gokce-yuksel/olist-analytics/main/.assets/olist_banner.png" width="80%" /> </p>
+🛒 Olist E-Commerce Analytics
+BigQuery + dbt + SQL End-to-End Data Pipeline
+
 🚀 Project Overview
 
-This project delivers an end-to-end analytics pipeline built with Google BigQuery, dbt, and SQL analytics using the Olist Brazilian e-commerce dataset.
+This project delivers a complete analytics workflow built using Google BigQuery, dbt, and SQL on top of the Olist Brazilian e-commerce dataset.
 
 The pipeline includes:
-✔️ Raw data ingestion
+
+✔️ Raw data ingestion into BigQuery
 ✔️ Staging & cleaning with dbt
 ✔️ Fact & dimension modeling
 ✔️ Analytical SQL queries
 ✔️ Final insights exported as CSV
 
-🧱 Tech Stack
-Tool	Purpose
-BigQuery	Cloud data warehouse
-dbt Core	Data modeling, transformation, testing
-SQL	KPI computation & analytical queries
-GitHub	Version control, documentation
-CSV Outputs	Final analytical datasets
-🗂️ Repository Structure
-olist-analytics/
-│
-├── dbt_project/
-│   ├── models/
-│   │   ├── staging/
-│   │   ├── marts/
-│   │   │   ├── dimensions/
-│   │   │   └── facts/
-│   └── dbt_project.yml
-│
-├── analysis_results/
-│   ├── customer_segments.csv
-│   ├── customer_lifetime_value.csv
-│   ├── top_selling_products.csv
-│   ├── best_rated_products.csv
-│   ├── revenue_by_city.csv
-│   └── orders_by_zipcode.csv
-│
-├── presentation/
-│   └── Olist_Insights_Slides.pptx
-│
-└── README.md
+The goal is to build a reliable analytics model and generate insights on customers, products, orders, and geography.
 
+🧰 Tech Stack
+Component	Purpose
+BigQuery	Cloud data warehouse for storing & querying raw + transformed data
+dbt Core	Data transformations, staging, marts, fact & dimension modeling
+SQL	KPI calculations & analytical queries
+GitHub	Version control & project hosting
+CSV Exports	Final analytical outputs
+📁 Repository Structure
+1. Main Folders
+Folder	Description
+dbt_project/	All dbt models, staging, marts, fact & dimension tables
+analysis_results/	Final CSV outputs from analytical queries
+presentation/	Slide deck (Olist_Insights_Slides.pptx)
+README.md	This documentation
+2. dbt Project Structure
+Path	Purpose
+dbt_project/models/staging/	Cleaned + standardized raw tables (stg_olist_*)
+dbt_project/models/marts/dimensions/	Dimension models (dim_customers, dim_products)
+dbt_project/models/marts/facts/	Fact models (fact_orders, fct_customer_value, fct_product_performance, fct_delivery_performance)
+dbt_project/dbt_project.yml	dbt project configuration
+3. Analysis Results (CSV Outputs)
+File	Description
+customer_segments.csv	VIP / Loyal / New customer segmentation
+customer_lifetime_value.csv	Customer Lifetime Value (CLV)
+top_selling_products.csv	Best-selling products
+best_rated_products.csv	Highest-rated products
+revenue_by_city.csv	Revenue by city
+orders_by_zipcode.csv	Order distribution by ZIP prefix
+4. Presentation
+File	Description
+Olist_Insights_Slides.pptx	Clean slide deck with placeholders for charts
 📊 Key Metrics & Business Insights
-👥 Customer Analytics
+👤 Customer Analytics
 Customer Segments (VIP, Loyal, New)
 
-Segmented based on order frequency
-
-Helps identify retention & high-value users
+Segmented using total order frequency.
+Helps identify high-value and retention-critical users.
 
 Customer Lifetime Value (CLV)
 
-Computed using aggregated revenue and average order value
+Calculated using:
 
-Top customers significantly outperform long-tail
+Total revenue per user
+
+Average order value
+
+Number of orders
+
+Top customers show extremely long-tail revenue patterns.
 
 📦 Product Analytics
 Top Selling Products
-<img src="https://raw.githubusercontent.com/gokce-yuksel/olist-analytics/main/.assets/top_selling.png" width="70%">
-Highest Rated Products
-<img src="https://raw.githubusercontent.com/gokce-yuksel/olist-analytics/main/.assets/best_rated.png" width="70%">
-💰 Order & Revenue Analytics
-Average Order Value
 
-Mean AOV ≈ 160.58 BRL
+Based on order frequency (from fact tables).
+
+Best Rated Products
+
+Ranked by average review score (min 20 reviews threshold).
+
+💰 Order & Revenue Analytics
+Average Order Value (AOV)
+
+Mean order value ≈ 160.58 BRL
 
 Revenue Distribution
-<img src="https://raw.githubusercontent.com/gokce-yuksel/olist-analytics/main/.assets/revenue_city.png" width="70%">
-🌎 Geographic Insights
-Top Revenue-Generating Cities
 
-São Paulo overwhelming leader
+Revenue concentrated in a small % of customers.
 
-Followed by Rio de Janeiro & Belo Horizonte
+🗺 Geographic Analytics
+Top Revenue Cities
+
+São Paulo is the clear leader, followed by Rio de Janeiro and Belo Horizonte.
 
 Orders by ZIP Prefix
 
-Useful for logistics & delivery optimization
+Useful for logistics optimization & delivery performance analytics.
 
-🧩 dbt Models
-🟦 Fact Tables
+🧱 Fact & Dimension Models
+Fact Tables
 
 fact_orders
 
@@ -90,37 +103,13 @@ fct_product_performance
 
 fct_delivery_performance
 
-🟩 Dimension Tables
+Dimension Tables
 
 dim_customers
 
 dim_products
 
-🟨 Staging Models
+Staging Tables
 
-All raw inputs standardized using:
-stg_olist_customers, stg_olist_orders, stg_olist_products, etc.
-
-📁 Final Analytical Outputs
-
-All final insight datasets are exported as CSV and available under:
-📂 analysis_results/
-
-Includes:
-
-Customer segments
-
-Customer lifetime value
-
-Top selling products
-
-Best rated products
-
-Revenue by city
-
-Orders by zipcode
-
-🎤 Presentation
-
-A clean slide deck summarizing insights:
-📂 presentation/Olist_Insights_Slides.pptx
+All raw source tables standardized under:
+stg_olist_*
